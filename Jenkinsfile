@@ -11,7 +11,7 @@ pipeline {
         stage('DeployToStaging') {
             
             steps {
-                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', username: 'deploy', password: 'jenkins')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
-                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', username: 'deploy', password: 'jenkins')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
